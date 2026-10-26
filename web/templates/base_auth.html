@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block content %}
+<main class="auth-wrap">
+  <section class="auth-side d-none d-lg-flex">
+    <div>
+      <div class="brand text-white fs-3">🥑 AgroAguacate</div>
+    </div>
+    <div style="position:relative; z-index:1">
+      <h2 class="display-6 fw-bold mb-4">Tu huerto, mejor cuidado.</h2>
+      <div class="point"><i class="bi bi-bag-check"></i><span>Insumos para el cultivo de aguacate en un solo lugar.</span></div>
+      <div class="point"><i class="bi bi-chat-heart"></i><span>AgroIA resuelve tus dudas de manejo, riego y fertilización.</span></div>
+      <div class="point"><i class="bi bi-camera"></i><span>Detecta roña y antracnosis a partir de una foto.</span></div>
+    </div>
+    <small class="opacity-75" style="position:relative; z-index:1">© AgroAguacate</small>
+  </section>
+  <section class="auth-main">
+    <div class="auth-card">
+      <div class="brand fs-4 mb-4 d-lg-none">🥑 Agro<span class="accent">Aguacate</span></div>
+      {% block auth_content %}{% endblock %}
+    </div>
+  </section>
+</main>
+{% endblock %}

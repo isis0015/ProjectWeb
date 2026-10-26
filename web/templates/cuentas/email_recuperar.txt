@@ -1,0 +1,11 @@
+{% autoescape off %}Hola,
+
+Recibimos una solicitud para restablecer la contraseña de tu cuenta de AgroAguacate.
+
+Abre este enlace (vence en 30 minutos y solo funciona una vez):
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+Si no fuiste tú, puedes ignorar este correo.
+
+Equipo AgroAguacate
+{% endautoescape %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="container py-5">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <span class="badge badge-soft mb-3 px-3 py-2">Hola, {{ user.nombre }} 👋</span>
+        <h1 class="display-5 fw-bold mb-3">Todo para que tu huerto de aguacate rinda más</h1>
+        <p class="lead text-muted mb-4">Insumos, asesoría con IA y diagnóstico de enfermedades en un solo lugar.</p>
+        <form action="{% url 'catalogo' %}" method="get" class="hero-search">
+          <input type="search" name="q" class="form-control form-control-lg" placeholder="Busca un fungicida, fertilizante, herramienta…">
+          <button class="btn btn-primary px-4" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+      <div class="col-lg-5">
+        <div class="ia-card">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="avatar"><i class="bi bi-stars"></i></span>
+            <div><div class="fw-semibold">AgroIA</div><div class="small text-muted">Asistente de cultivo</div></div>
+          </div>
+          <div class="ia-bubble mb-3">¿Dudas sobre riego, plagas o fertilización? Pronto podrás preguntarme aquí.</div>
+          <button class="btn btn-outline-primary w-100" data-soon="AgroIA estará disponible pronto">
+            <i class="bi bi-chat-dots me-1"></i> Conversar con AgroIA
+          </button>
+          <p class="small text-muted mt-3 mb-0"><i class="bi bi-info-circle"></i> Respuestas orientativas; no sustituyen a un agrónomo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container py-5">
+  <div class="d-flex justify-content-between align-items-end mb-3">
+    <h2 class="h3 mb-0">Explora por categoría</h2>
+    <a href="{% url 'catalogo' %}" class="link-agro small fw-semibold">Ver todo <i class="bi bi-arrow-right"></i></a>
+  </div>
+  <div class="row g-3">
+    {% for c in categorias %}
+    <div class="col-6 col-md-3">
+      <a class="cat-card" href="{% url 'catalogo' %}?categoria={{ c.slug }}">
+        <i class="bi {{ c.icono }}"></i>
+        <div class="fw-semibold mt-2">{{ c.nombre }}</div>
+        <div class="small text-muted">{{ c.total }} producto{{ c.total|pluralize }}</div>
+      </a>
+    </div>
+    {% empty %}
+    <p class="text-muted">Aún no hay categorías. Agrégalas desde el panel de administración.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="container pb-4">
+  <h2 class="h3 mb-3">Novedades en el catálogo</h2>
+  <div class="row g-4">
+    {% for p in destacados %}
+    <div class="col-6 col-lg-3">{% include "catalogo/_producto_card.html" %}</div>
+    {% empty %}
+    <p class="text-muted">Todavía no hay productos disponibles.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

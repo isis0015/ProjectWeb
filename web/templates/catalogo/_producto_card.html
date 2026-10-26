@@ -1,0 +1,40 @@
+<article class="product-card">
+  <div class="product-media">
+    {% if p.imagen %}<img src="{{ p.imagen.url }}" alt="{{ p.nombre }}" loading="lazy">
+    {% else %}<i class="bi {{ p.categoria.icono }}"></i>{% endif %}
+    {% if not p.disponible %}<span class="badge text-bg-dark position-absolute top-0 end-0 m-2">Agotado</span>{% endif %}
+  </div>
+  <div class="p-3 d-flex flex-column flex-grow-1">
+    <span class="badge badge-soft align-self-start mb-2">{{ p.categoria.nombre }}</span>
+    <h3 class="h6 fw-semibold mb-1">{{ p.nombre }}</h3>
+    {% if p.presentacion %}<div class="small text-muted">{{ p.presentacion }}</div>{% endif %}
+    {% if p.num_resenas %}
+      <div class="small text-muted mt-1"><i class="bi bi-star-fill text-warning"></i> {{ p.promedio|floatformat:1 }} ({{ p.num_resenas }})</div>
+    {% endif %}
+    <div class="mt-auto d-flex justify-content-between align-items-center pt-3">
+      <span class="price">${{ p.precio|floatformat:"2g" }}</span>
+      <button type="button" class="btn btn-sm btn-outline-primary" data-quickview="{{ p.pk }}">Ver detalle</button>
+    </div>
+  </div>
+
+  <template id="qv-{{ p.pk }}" data-disponible="{% if p.disponible %}1{% else %}0{% endif %}">
+    <div class="qv">
+      <span class="badge badge-soft mb-2">{{ p.categoria.nombre }}</span>
+      <h2 class="h4 mb-1">{{ p.nombre }}</h2>
+      <div class="price fs-4 mb-3">${{ p.precio|floatformat:"2g" }} <small class="text-muted fs-6 fw-normal">{{ p.presentacion }}</small></div>
+      {% if p.descripcion %}<p class="text-muted">{{ p.descripcion }}</p>{% endif %}
+      <dl class="mb-0">
+        {% if p.atributos.ingrediente_activo %}<dt>Ingrediente activo</dt><dd>{{ p.atributos.ingrediente_activo }}</dd>{% endif %}
+        {% if p.atributos.dosis %}<dt>Dosis sugerida</dt><dd>{{ p.atributos.dosis }}</dd>{% endif %}
+        {% if p.atributos.material %}<dt>Material</dt><dd>{{ p.atributos.material }}</dd>{% endif %}
+        {% if p.enfermedades_objetivo %}
+          <dt>Enfermedades objetivo</dt>
+          <dd>{% for e in p.enfermedades_objetivo %}<span class="badge badge-soft me-1">{{ e|capfirst }}</span>{% endfor %}</dd>
+        {% endif %}
+        <dt>Disponibilidad</dt>
+        <dd>{% if p.disponible %}<i class="bi bi-check-circle-fill text-success"></i> {{ p.stock }} en existencia{% else %}<i class="bi bi-x-circle-fill text-danger"></i> Agotado{% endif %}</dd>
+      </dl>
+      <p class="small text-muted mt-3 mb-0"><i class="bi bi-info-circle"></i> Verifica siempre la etiqueta del producto antes de aplicar.</p>
+    </div>
+  </template>
+</article>

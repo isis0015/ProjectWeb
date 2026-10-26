@@ -1,0 +1,17 @@
+{% extends "base_auth.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Crear cuenta{% endblock %}
+{% block auth_content %}
+<h1 class="auth-title">Crea tu cuenta</h1>
+<p class="text-muted mb-4">Es gratis y te toma menos de un minuto.</p>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+  {% crispy form %}
+  <button type="submit" class="btn btn-primary btn-lg w-100 mt-2">Crear cuenta</button>
+</form>
+
+<p class="text-center text-muted mt-4 mb-0">
+  ¿Ya tienes cuenta? <a href="{% url 'login' %}" class="link-agro fw-semibold">Inicia sesión</a>
+</p>
+{% endblock %}

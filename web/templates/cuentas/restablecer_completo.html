@@ -1,0 +1,13 @@
+{% extends "base_auth.html" %}
+{% block title %}Contraseña actualizada{% endblock %}
+{% block auth_content %}
+<div class="text-center">
+  <i class="bi bi-patch-check display-3 text-success"></i>
+  <h1 class="auth-title mt-3">¡Listo!</h1>
+  <p class="text-muted">Tu contraseña fue actualizada. Ya puedes iniciar sesión.</p>
+  <a href="{% url 'login' %}" class="btn btn-primary btn-lg w-100 mt-3">Iniciar sesión</a>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script>Toast.fire({ icon: 'success', title: 'Contraseña actualizada' });</script>
+{% endblock %}
